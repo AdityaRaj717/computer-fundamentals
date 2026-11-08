@@ -1,0 +1,32 @@
+<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=390">
+<link href="https://fonts.googleapis.com/css2?family=Overpass:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{width:390px;height:844px;overflow:hidden;background:#14213D;color:#F5F3EE;font-family:'Overpass',system-ui,sans-serif}
+.top{height:56px;display:flex;align-items:center;gap:10px;padding:0 16px}
+.line{width:28px;height:28px;border-radius:50%;background:#D7263D;display:grid;place-items:center;font-weight:800;font-size:13px}
+.top b{font-size:16px}.top small{margin-left:auto;font-size:13px;opacity:.8}
+.route{margin:6px 16px 0;height:28px;position:relative}
+.route:before{content:"";position:absolute;left:0;right:0;top:12px;height:4px;background:#D7263D;border-radius:2px}
+.route i{position:absolute;top:6px;width:16px;height:16px;border-radius:50%;background:#F5F3EE;border:3px solid #D7263D}
+.plate{margin:14px 16px 0;height:320px;border-radius:6px;background:#0F1A31;position:relative}
+.plate .tag{position:absolute;left:12px;bottom:12px;background:#D7263D;padding:4px 8px;border-radius:3px;font-size:12px;font-weight:600}
+.panel{position:absolute;left:0;right:0;bottom:0;height:360px;background:#F5F3EE;color:#14213D;border-radius:14px 14px 0 0;padding:18px 16px}
+.panel .k{font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#1B6CA8}
+.panel h2{font-size:22px;margin:6px 0}.panel p{font-size:16px;line-height:1.45}
+.panel h3{font-size:17px;margin:14px 0 10px}
+.opts{display:flex;flex-direction:column;gap:8px}
+.opts button{height:44px;border:1.5px solid #14213D;background:#fff;border-radius:6px;font:inherit;text-align:left;padding:0 12px;display:flex;align-items:center;gap:10px}
+.opts button i{width:12px;height:12px;border-radius:50%;display:block}
+</style></head><body>
+<div class="top"><div class="line">L1</div><b>Till → Printer</b><small>Stop 4 of 9</small></div>
+<div class="route"><i style="left:0"></i><i style="left:30%"></i><i style="left:60%;background:#D7263D"></i><i style="right:0"></i></div>
+<div class="plate"><svg width="358" height="320" viewBox="0 0 358 320" fill="none" stroke="#F5F3EE" stroke-width="1"><g transform="translate(88,40)">
+<path d="M90 0 L180 40 L90 80 L0 40 Z"/><path d="M0 40 v18 l90 40 l90 -40 v-18"/>
+<g transform="translate(0,40)"><path d="M0 40 v18 l90 40 l90 -40 v-18"/></g><g transform="translate(0,80)"><path d="M0 40 v18 l90 40 l90 -40 v-18"/></g>
+<g transform="translate(0,120)"><path d="M0 40 v18 l90 40 l90 -40 v-18"/></g><g transform="translate(0,160)"><path d="M0 40 v18 l90 40 l90 -40 v-18" stroke="#D7263D" stroke-width="2.5"/></g></g></svg>
+<div class="tag">Service suspended · Physical</div></div>
+<div class="panel"><h2>Physical line: no cable, no train.</h2><p>Bits ride the cable as pulses. Pull it and every stop above goes quiet.</p>
+<h3>Which layer fails first?</h3>
+<div class="opts"><button><i style="background:#D7263D"></i>Physical</button><button><i style="background:#1B6CA8"></i>Network</button><button><i style="background:#F4A300"></i>Application</button></div></div>
+</body></html>

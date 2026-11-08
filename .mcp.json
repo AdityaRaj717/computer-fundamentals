@@ -1,0 +1,18 @@
+{
+  "mcpServers": {
+    "figcraft": {
+      "command": "C:\\Program Files\\ArtCraft\\FigCraft\\figcraft-cli.exe",
+      "args": [
+        "mcp",
+        "--automation-write-root",
+        "D:\\Programming\\Self Learning\\Projects\\Misc\\Computer Fundamentals",
+        "--automation-read-root",
+        "D:\\"
+      ]
+    },
+    "figcraft-app": {
+      "command": "C:\\Program Files\\ArtCraft\\FigCraft\\figcraft-cli.exe",
+      "args": ["mcp", "--attach", "7979", "--timeout", "120"]
+    }
+  }
+}

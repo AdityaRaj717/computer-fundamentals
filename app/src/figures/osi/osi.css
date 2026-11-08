@@ -1,0 +1,208 @@
+/* Fig 1, the OSI cabinet. Tokens are scoped to .osi; the tint for objective 1.1 comes in through the card,
+   the page around it and the one lit accent. The four-tone system is kept: shades are mixed 7% toward the tint. */
+
+.iso.osi {
+  --osi-tint: #1f5b3f;
+  --osi-card: #f6f9f6;
+  --anatomy-card: var(--osi-card);
+  --anatomy-paper: var(--osi-card);
+  --anatomy-face: #ffffff;
+  --anatomy-top: #ffffff;
+  --anatomy-shade-0: color-mix(in oklab, #dcdcd9 93%, var(--osi-tint));
+  --anatomy-shade-1: color-mix(in oklab, #e5e5e2 94%, var(--osi-tint));
+  --anatomy-shade-2: color-mix(in oklab, #ededea 95%, var(--osi-tint));
+  --anatomy-shade-3: color-mix(in oklab, #f4f4f1 96%, var(--osi-tint));
+  --anatomy-lit: var(--osi-tint);
+  --anatomy-lit-top: #eef6f0;
+  --anatomy-lit-shade: #dcebe1;
+  --anatomy-text: #3d4a42;
+  --anatomy-muted: #6f7a72;
+  --osi-cavity: #34413a;
+  --anatomy-mono: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+}
+
+.iso.osi .iso-figure {
+  margin: 0;
+}
+
+.iso.osi .iso-plate {
+  border-radius: 28px;
+  padding: 36px 10px 34px;
+  box-shadow:
+    inset 0 0 0 1px color-mix(in oklab, var(--osi-tint) 10%, transparent),
+    0 1px 2px rgba(20, 40, 28, 0.05),
+    0 12px 32px -12px rgba(20, 40, 28, 0.18);
+}
+
+.iso.osi .iso-plate-corners {
+  inset: 15px 18px 13px;
+}
+
+.iso.osi .iso-plate-corner[data-corner="hint"] {
+  bottom: 0;
+}
+
+.iso.osi .iso-plate-corner {
+  font-size: 11px;
+}
+
+.iso.osi .iso-plate-corner[data-corner="readout"] {
+  color: var(--osi-tint);
+  font-weight: 600;
+}
+
+.osi-stage {
+  touch-action: pan-y;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+  -webkit-user-select: none;
+  border-radius: 18px;
+  cursor: pointer;
+}
+
+.osi-stage:focus-visible {
+  outline: 2px solid color-mix(in oklab, var(--osi-tint) 60%, transparent);
+  outline-offset: 4px;
+}
+
+.osi-stage .iso-svg {
+  overflow: visible;
+  max-height: calc(100dvh - 404px);
+  min-height: 280px;
+}
+
+@media (min-width: 1024px) {
+  .osi-stage .iso-svg {
+    max-height: calc(100dvh - 215px);
+  }
+}
+
+.osi-hit {
+  fill: transparent;
+  stroke: none;
+  pointer-events: all;
+}
+
+.osi-soft {
+  filter: blur(3px);
+}
+
+/* an open drawer's front steps up one tone */
+.osi-drawer [data-open] .osi-front > .iso-edge {
+  stroke: var(--anatomy-hi);
+}
+
+.osi-cable path {
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  vector-effect: non-scaling-stroke;
+}
+
+.osi-cable-body {
+  stroke: var(--anatomy-mid);
+  stroke-width: 2.6px;
+}
+
+.osi-cable-shine {
+  stroke: var(--anatomy-shade-3);
+  stroke-width: 0.9px;
+  transform: translate(0, -0.35px);
+}
+
+.osi-pulse {
+  fill: var(--anatomy-lit);
+  stroke: var(--anatomy-paper);
+  stroke-width: 0.8px;
+  vector-effect: non-scaling-stroke;
+}
+
+.osi-led {
+  fill: var(--anatomy-lit);
+}
+
+.osi-led-off {
+  fill: var(--anatomy-faint);
+}
+
+.osi-job {
+  cursor: pointer;
+}
+
+.osi-plug {
+  cursor: pointer;
+}
+
+/* the slot an open drawer leaves: a darker ground, still in the figure's own inks */
+.osi-cavity-back {
+  fill: color-mix(in oklab, var(--anatomy-shade-0) 62%, #34413a);
+}
+
+.osi-cavity-wall {
+  fill: color-mix(in oklab, var(--anatomy-shade-1) 72%, #34413a);
+}
+
+/* ---------- the lesson-screen variant: the figure fills a soft tinted stage, the readout floats as a pill */
+
+.iso.osi.osi--stage {
+  --osi-card: #eef4ef;
+  height: 100%;
+}
+
+.osi--stage .iso-figure,
+.osi--stage .iso-plate,
+.osi--stage .osi-stage,
+.osi--stage .iso-stage {
+  height: 100%;
+}
+
+.iso.osi.osi--stage .iso-plate {
+  padding: 30px 4px 46px;
+  border-radius: 28px;
+  box-shadow: inset 0 0 0 1px color-mix(in oklab, var(--osi-tint) 8%, transparent);
+}
+
+.osi--stage .osi-stage .iso-svg {
+  width: 100%;
+  height: 100%;
+  max-height: none;
+  min-height: 0;
+}
+
+.iso.osi.osi--stage .iso-plate-corners {
+  inset: 12px 14px 12px;
+}
+
+.osi--stage .iso-plate-corner[data-corner="fig"],
+.osi--stage .iso-plate-corner[data-corner="title"] {
+  display: none;
+}
+
+.iso.osi.osi--stage .iso-plate-corner[data-corner="hint"] {
+  top: 0;
+  bottom: auto;
+  left: 0;
+  font-family: var(--font-sans, system-ui);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: color-mix(in oklab, var(--osi-tint) 70%, #6f7a72);
+}
+
+.iso.osi.osi--stage .iso-plate-corner[data-corner="readout"] {
+  right: auto;
+  left: 50%;
+  bottom: 0;
+  transform: translateX(-50%);
+  max-width: calc(100% - 8px);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding: 7px 12px;
+  border-radius: 999px;
+  background: #ffffff;
+  box-shadow:
+    0 0 0 1px color-mix(in oklab, var(--osi-tint) 10%, transparent),
+    0 4px 14px -6px rgba(20, 40, 28, 0.25);
+  font-size: 11.5px;
+  line-height: 1;
+}

@@ -1,0 +1,15 @@
+# graft's local graph cache — regenerable, not committed (run `graft build`).
+/graft/
+
+# Dependencies and build output
+node_modules/
+dist/
+*.log
+
+# Local env and machine settings
+.env
+.env.*
+.claude/settings.local.json
+
+# Third-party skill cloned as its own git repo
+.claude/skills/anatomy/

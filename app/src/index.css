@@ -1,0 +1,316 @@
+@import "tailwindcss";
+@import "@fontsource-variable/figtree";
+@import "./figures/kit/iso.css";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* ============================================================================================
+   Design system. One warm paper ground, white raised surfaces, near-black ink for app-level
+   actions, and one tint per Network+ objective for content (cards, lesson buttons, bars).
+   Light first (the figures are drawn for light), with a full dark theme.
+   ============================================================================================ */
+
+:root {
+  color-scheme: light;
+
+  /* ground and surfaces, lowest to highest */
+  --bg: #f4f3ef;
+  --surf: #ffffff;
+  --surf-2: #ecebe6;
+  --surf-3: #e2e1db;
+  --scrim: rgba(20, 19, 17, 0.42);
+
+  /* ink */
+  --ink: #1c1b19;
+  --ink-2: #5f5d58; /* 6.0:1 on --bg, 6.6:1 on white */
+  --ink-3: #6a6863; /* 4.6:1 on --surf-2, 5.6:1 on white */
+  --line: rgba(28, 27, 25, 0.08);
+
+  /* app-level action: near-black, like Revolut and Linear; content gets objective tints */
+  --brand: #1c1b19;
+  --brand-ink: #ffffff;
+
+  /* objective tints (each: strong, soft, and text on strong) */
+  --o11: #1f5b3f;
+  --o11-soft: #e2eee5;
+  --o14: #96470f;
+  --o14-soft: #f6e7d8;
+  --o17: #2a54a0;
+  --o17-soft: #e3eaf7;
+  --o51: #7a3a86;
+  --o51-soft: #f1e5f3;
+  --on-tint: #ffffff;
+
+  /* the active tint (set per screen with data-obj) */
+  --accent: var(--brand);
+  --accent-soft: var(--surf-2);
+  --accent-ink: var(--brand-ink);
+
+  --good: #1d7448;
+  --good-soft: #e1f0e6;
+  --bad: #a63f2d;
+  --bad-soft: #f6e3de;
+
+  /* elevation: hairline ring + soft drop, never a 1px rule on its own */
+  --ring-1: 0 0 0 1px rgba(28, 27, 25, 0.05);
+  --shadow-1: var(--ring-1), 0 1px 2px rgba(28, 27, 25, 0.04), 0 8px 24px -14px rgba(28, 27, 25, 0.22);
+  --shadow-2: var(--ring-1), 0 2px 4px rgba(28, 27, 25, 0.04), 0 18px 40px -18px rgba(28, 27, 25, 0.3);
+  --shadow-3: 0 -1px 0 rgba(28, 27, 25, 0.04), 0 -18px 50px -20px rgba(28, 27, 25, 0.38);
+  --press: inset 0 -3px 0 rgba(0, 0, 0, 0.22);
+
+  /* shadcn names, mapped */
+  --background: var(--bg);
+  --foreground: var(--ink);
+  --primary: var(--accent);
+  --primary-foreground: var(--accent-ink);
+  --secondary: var(--surf-2);
+  --secondary-foreground: var(--ink);
+  --muted: var(--surf-2);
+  --muted-foreground: var(--ink-2);
+  --border: var(--line);
+  --input: var(--line);
+  --ring: color-mix(in oklab, var(--accent) 60%, transparent);
+  --destructive: var(--bad);
+  --radius: 1.125rem;
+}
+
+.dark {
+  color-scheme: dark;
+  --bg: #11110f;
+  --surf: #1c1b19;
+  --surf-2: #272623;
+  --surf-3: #33322e;
+  --scrim: rgba(0, 0, 0, 0.6);
+  --ink: #f3f2ee;
+  --ink-2: #b2b0a8;
+  --ink-3: #9b9991;
+  --line: rgba(255, 255, 255, 0.08);
+  --brand: #f3f2ee;
+  --brand-ink: #151513;
+  --o11: #84cfa3;
+  --o11-soft: #1b2c23;
+  --o14: #f2ae74;
+  --o14-soft: #33241a;
+  --o17: #9db8f2;
+  --o17-soft: #1c2538;
+  --o51: #dca3e6;
+  --o51-soft: #2d1f31;
+  --on-tint: #12110f;
+  --good: #6bcf96;
+  --good-soft: #17291e;
+  --bad: #f2917d;
+  --bad-soft: #351e19;
+  --ring-1: 0 0 0 1px rgba(255, 255, 255, 0.06);
+  --shadow-1: var(--ring-1), 0 10px 30px -18px rgba(0, 0, 0, 0.7);
+  --shadow-2: var(--ring-1), 0 22px 50px -20px rgba(0, 0, 0, 0.8);
+  --shadow-3: 0 0 0 1px rgba(255, 255, 255, 0.06), 0 -20px 50px -20px rgba(0, 0, 0, 0.8);
+  --press: inset 0 -3px 0 rgba(0, 0, 0, 0.28);
+}
+
+/* one tint per objective, set on any subtree */
+[data-obj="o11"] { --accent: var(--o11); --accent-soft: var(--o11-soft); --accent-ink: var(--on-tint); }
+[data-obj="o14"] { --accent: var(--o14); --accent-soft: var(--o14-soft); --accent-ink: var(--on-tint); }
+[data-obj="o17"] { --accent: var(--o17); --accent-soft: var(--o17-soft); --accent-ink: var(--on-tint); }
+[data-obj="o51"] { --accent: var(--o51); --accent-soft: var(--o51-soft); --accent-ink: var(--on-tint); }
+
+@theme inline {
+  --font-sans: "Figtree Variable", ui-sans-serif, system-ui, sans-serif;
+
+  /* type scale: big confident titles, 16px body, nothing under 12.5px */
+  --text-display: 2.125rem;
+  --text-display--line-height: 1.08;
+  --text-display--letter-spacing: -0.03em;
+  --text-title: 1.75rem;
+  --text-title--line-height: 1.12;
+  --text-title--letter-spacing: -0.025em;
+  --text-title-2: 1.375rem;
+  --text-title-2--line-height: 1.2;
+  --text-title-2--letter-spacing: -0.02em;
+  --text-headline: 1.0625rem;
+  --text-headline--line-height: 1.3;
+  --text-headline--letter-spacing: -0.01em;
+  --text-body: 1rem;
+  --text-body--line-height: 1.45;
+  --text-callout: 0.9375rem;
+  --text-callout--line-height: 1.42;
+  --text-footnote: 0.8125rem;
+  --text-footnote--line-height: 1.38;
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-primary: var(--accent);
+  --color-primary-foreground: var(--accent-ink);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-accent: var(--accent-soft);
+  --color-accent-foreground: var(--ink);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: color-mix(in oklab, var(--accent) 60%, transparent);
+  --color-destructive: var(--destructive);
+
+  --color-bg: var(--bg);
+  --color-ink: var(--ink);
+  --color-ink-2: var(--ink-2);
+  --color-ink-3: var(--ink-3);
+  --color-surf: var(--surf);
+  --color-surf-2: var(--surf-2);
+  --color-surf-3: var(--surf-3);
+  --color-brand: var(--brand);
+  --color-brand-ink: var(--brand-ink);
+  --color-tint: var(--accent);
+  --color-tint-soft: var(--accent-soft);
+  --color-on-tint: var(--accent-ink);
+  --color-good: var(--good);
+  --color-good-soft: var(--good-soft);
+  --color-bad: var(--bad);
+  --color-bad-soft: var(--bad-soft);
+
+  --radius-sm: 10px;
+  --radius-md: 14px;
+  --radius-lg: 18px;
+  --radius-xl: 22px;
+  --radius-2xl: 18px;
+  --radius-card: 28px;
+
+  --shadow-card: var(--shadow-1);
+  --shadow-raised: var(--shadow-2);
+  --shadow-sheet: var(--shadow-3);
+  --shadow-press: var(--press);
+}
+
+@layer base {
+  * {
+    border-color: var(--border);
+  }
+  html {
+    background: var(--bg);
+    -webkit-tap-highlight-color: transparent;
+    /* keyboard focus never lands under the sticky header, pinned buttons or the tab bar */
+    scroll-padding-top: 72px;
+    scroll-padding-bottom: 128px;
+  }
+  html,
+  body {
+    color: var(--ink);
+    font-family: var(--font-sans);
+    font-feature-settings: "ss01" 0;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  body {
+    margin: 0;
+    background: var(--bg);
+    overflow-x: hidden;
+  }
+  button,
+  [role="button"] {
+    cursor: pointer;
+    touch-action: manipulation;
+  }
+  :focus-visible {
+    outline: 3px solid color-mix(in oklab, var(--accent) 70%, var(--ink));
+    outline-offset: 2px;
+  }
+  .num {
+    font-variant-numeric: tabular-nums;
+  }
+}
+
+/* continuous (squircle) corners where the browser supports them; the radius grows so the curve
+   reads the same size as the plain round corner it replaces */
+@supports (corner-shape: squircle) {
+  .sq {
+    corner-shape: squircle;
+  }
+  .sq.rounded-card {
+    border-radius: 44px;
+  }
+  .sq.rounded-xl {
+    border-radius: 34px;
+  }
+  .sq.rounded-lg,
+  .sq.rounded-2xl {
+    border-radius: 28px;
+  }
+}
+
+/* page that sits above the tab bar */
+.page {
+  padding-bottom: calc(108px + env(safe-area-inset-bottom));
+}
+@media (min-width: 1024px) {
+  .page {
+    padding-bottom: 64px;
+  }
+}
+
+/* soft shimmer for loading skeletons; still under reduced motion */
+.skeleton {
+  background: linear-gradient(100deg, var(--surf-2) 30%, var(--surf-3) 50%, var(--surf-2) 70%);
+  background-size: 300% 100%;
+  animation: shimmer 1.6s ease-in-out infinite;
+}
+@keyframes shimmer {
+  from { background-position: 100% 0; }
+  to { background-position: 0 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .skeleton { animation: none; }
+}
+
+/* ---------- lesson screen layout: question on top, figure in the middle, answers docked at the bottom */
+.lesson-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-rows: auto auto minmax(0, 1fr) auto;
+  grid-template-areas: "top" "head" "stage" "dock";
+}
+
+@media (min-width: 1024px) {
+  .lesson-grid {
+    grid-template-columns: minmax(0, 1fr) 400px;
+    grid-template-rows: auto minmax(24px, 1fr) auto auto minmax(24px, 1fr);
+    grid-template-areas: "top top" "stage ." "stage head" "stage dock" "stage .";
+    column-gap: 48px;
+    padding: 0 40px 32px;
+  }
+}
+
+/* feedback slides up from the bottom as a tinted band (Duolingo, Sololearn) */
+.band {
+  border-radius: 28px 28px 0 0;
+  padding: 18px 20px max(16px, env(safe-area-inset-bottom));
+  box-shadow: var(--shadow-3);
+}
+.band--good { background: var(--accent-soft); }
+.band--bad { background: var(--bad-soft); }
+
+@media (min-width: 1024px) {
+  .band {
+    border-radius: 28px;
+    margin-top: 24px;
+    padding: 22px;
+  }
+}
+
+/* the figure as a quiet picture inside a card: no second plate, no corners */
+.fig-preview .iso.osi.osi--stage .iso-plate {
+  background: transparent;
+  box-shadow: none;
+  padding: 0;
+}
+.fig-preview .iso-plate-corners {
+  display: none;
+}
+
+/* browser surfaces carry the palette too */
+::selection {
+  background: color-mix(in oklab, var(--accent) 24%, transparent);
+}
+input,
+textarea {
+  caret-color: var(--accent);
+}

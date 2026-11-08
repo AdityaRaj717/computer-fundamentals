@@ -1,0 +1,35 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "border-accent-on-rounded",
+        "value": "*",
+        "files": [
+          "src/components/app/ui.tsx"
+        ],
+        "createdAt": "2026-11-08T17:38:13.397Z",
+        "reason": "agent decision: pressable answer tiles with a thicker bottom edge (border-b-4) reuse the Lesson 1 tile pattern the user already reviewed; not a decorative accent stripe"
+      },
+      {
+        "rule": "border-accent-on-rounded",
+        "value": "*",
+        "files": [
+          "src/pages/Quiz.tsx"
+        ],
+        "createdAt": "2026-11-08T17:38:13.727Z",
+        "reason": "agent decision: pressable answer tiles with a thicker bottom edge (border-b-4) reuse the Lesson 1 tile pattern the user already reviewed; not a decorative accent stripe"
+      },
+      {
+        "rule": "border-accent-on-rounded",
+        "value": "*",
+        "files": [
+          "src/pages/PortMatch.tsx"
+        ],
+        "createdAt": "2026-11-08T17:38:14.086Z",
+        "reason": "agent decision: pressable answer tiles with a thicker bottom edge (border-b-4) reuse the Lesson 1 tile pattern the user already reviewed; not a decorative accent stripe"
+      }
+    ]
+  }
+}
