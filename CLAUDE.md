@@ -5,7 +5,7 @@ Read [README.md](README.md) first: it has the product summary, the current state
 Two people work on this repo, each with their own Claude account: the owner (Aditya) and a collaborator. Neither Claude can see the other's memory or chat history. **Anything worth remembering for both goes into this file or `docs/`, not into private memory.**
 
 ## Sources of truth (in priority order)
-1. `.specify/memory/constitution.md`: binding product rules. It overrides everything else. (Exception: its "Content Standards" line about Hairline is out of date; figures are Anatomy.)
+1. `.specify/memory/constitution.md`: binding product rules. It overrides everything else.
 2. `PRODUCT.md`: users, purpose, scope, constraints.
 3. `specs/001-netplus-pilot/spec.md`: what the pilot must do.
 4. `docs/illustration-stack.md`: how figures are built. Follow it in order.
@@ -33,6 +33,28 @@ Two people work on this repo, each with their own Claude account: the owner (Adi
 - Before saying something is done: `npm run build` in `app/` passes, no console errors (including React key warnings), check at 390 px width, touch, keyboard and reduced motion.
 - Dev server: `.claude/launch.json` defines `app` (port 5173) and `app-ui` (port 5180).
 - Figure checks use the Anatomy scripts (`scripts/capture.mjs`, `lines.mjs`, `drive.mjs`; see `docs/illustration-stack.md` "Checking"). `lines.mjs` must print `line ends: 0` in every resting pose. The paths in that doc (`D:\tmp_render`, the Chrome path) are the owner's Windows machine; use your own temp folder.
-- Spec-kit skills (`/speckit-specify`, `/speckit-plan`, `/speckit-tasks`, `/speckit-implement`, …) are in `.claude/skills/` and work for anyone. Use them for a new lesson: spec → plan → tasks.
-- The owner's design pipeline uses tools the collaborator may not have (Lazyweb, the impeccable plugin, ui-ux-pro-max, FigCraft via `.mcp.json`). If they're missing, skip them, follow the "App screen finish" rules above, and say in the PR that the design pass wasn't run so the owner can do it.
 - When you make a decision that changes any of the above, update this file in the same PR.
+
+## Skills and tools: what to use for what
+
+| Job | Use | Notes |
+|---|---|---|
+| New lesson or feature | Spec-kit skills: `/speckit-specify` → `/speckit-clarify` → `/speckit-plan` → `/speckit-tasks` → `/speckit-implement` | In `.claude/skills/`, work for anyone. `/speckit-analyze` checks spec, plan and tasks agree before you build. |
+| Lesson figures | `anatomy` skill (`.claude/skills/anatomy`) | Follow `docs/illustration-stack.md` in order. React Flow for wiring/topology tasks, Motion for UI transitions, react-three-fiber only for real 3D. |
+| App screens (design) | **FigCraft** (MCP in `.mcp.json`) | Screens are designed in FigCraft first, shown to the owner, then built in code. See "Screen design pipeline" below. |
+| App screens (code) | React + Tailwind 4 + shadcn/ui in `app/` | Build from the approved FigCraft screens; don't redesign while coding. |
+| Checking in the browser | Built-in browser + `.claude/launch.json` (`app`, `app-ui`) | 390 px width, touch, keyboard, reduced motion, console clean. |
+| Finding code | `graft` (repo is indexed, see `graft/INDEX.md`) | Optional; plain grep is fine if you don't have it. |
+
+**Not used here:** Hairline (dropped), `design-taste-frontend` (the taste skill), impeccable beyond `distill` and `clarify`, hand-drawn SVG figures.
+
+### Screen design pipeline (in this order)
+1. **References:** Lazyweb board linked in `docs/ui-references.md`, plus the apps named under "App screen finish". Don't re-research what that doc already records.
+2. **impeccable:** only `distill` (cut density) and `clarify` (copy and hierarchy).
+3. **ui-ux-pro-max:** only as an anti-slop check on the direction, not to generate it.
+4. **FigCraft:** draw the screens at 390×844 (and check 320 px wide). Use auto layout, styles and variables, not loose shapes. Verify with `inspect_document` and `screenshot` before showing anyone. Save files under `design/` in this repo (FigCraft can only write inside the repo).
+5. **Owner review** of the FigCraft screens, then build in `app/`.
+
+FigCraft has two servers in `.mcp.json`: `figcraft` (headless, always works) and `figcraft-app` (attaches to the running FigCraft desktop app on port 7979, so the owner can watch; it only connects when the app is open). Both use the owner's Windows install path.
+
+**Collaborator without these tools:** Lazyweb, impeccable, ui-ux-pro-max and FigCraft are the owner's. If they're missing, skip them, follow "App screen finish" above, build straight in `app/`, and say in the PR that the design pass wasn't run so the owner can do it.
